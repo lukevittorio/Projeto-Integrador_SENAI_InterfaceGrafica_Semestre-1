@@ -6,6 +6,7 @@ package lk.projetointegrador;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -82,25 +83,27 @@ public class Login extends javax.swing.JFrame {
 
     private void botaologinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaologinActionPerformed
         // TODO add your handling code here:
-        String l, s;
-        l = login.getText();
-        s = senha.getText();
-
-        if(l.equals("admin") && s.equals("admin")){
-            JOptionPane.showMessageDialog(null, "Login Autenticado, bem vindo!");
-            dispose();
-            new Menu().setVisible(true);
-        }
-        else if(l.equals("suporte") && s.equals("sup")){
-            JOptionPane.showMessageDialog(null, "Login Autenticado, bem vindo!");
-            dispose();
-            new Menu().setVisible(true);
-        }
-        else{
+        
+        String DIR = "c:\\wamp642\\tmp\\login.csv";
+        Arquivos file = new Arquivos();
+        ArrayList<String> dadosLeitura = file.leitura(DIR);
+        String l = login.getText();
+        String s = senha.getText();
+        String log = l + "," + s;//concateno o login e senha com a vírgula no meio
+        boolean verifica = false;//flag para verificar se existe no csv
+        for (String value : dadosLeitura) {
+            if (log.equals(value)) {
+                verifica = true;
+                JOptionPane.showMessageDialog(null, "Login Autenticado, bem vindo!");
+                dispose();
+                new Menu().setVisible(true);
+                }
+            }
+        if (verifica == false) {
             JOptionPane.showMessageDialog(null, "Login ou Senha incorretos!");
-            login.setText("");
-            senha.setText("");
         }
+        login.setText("");
+        senha.setText("");                  
     }//GEN-LAST:event_botaologinActionPerformed
 
     /**
