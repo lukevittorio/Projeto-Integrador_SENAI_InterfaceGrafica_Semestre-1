@@ -5,25 +5,22 @@
 package lk.projetointegrador;
 
 import conecta.Conectar;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.sql.Connection;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author lukev
  */
-public class Login extends javax.swing.JFrame {
+public class Cadastro extends javax.swing.JFrame {
 
     /**
-     * Creates new form Login
+     * Creates new form Cadastro
      */
-    public Login() {
+    public Cadastro() {
         initComponents();
         
-        setTitle("Login");
+        setTitle("Cadastro");
     }
 
     /**
@@ -39,8 +36,8 @@ public class Login extends javax.swing.JFrame {
         login = new javax.swing.JTextField();
         senha = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
-        botaocadastro = new javax.swing.JButton();
-        botaologin = new javax.swing.JButton();
+        botaovoltar = new javax.swing.JButton();
+        botaoenviar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,6 +54,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 180, 30));
+
+        senha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senhaActionPerformed(evt);
+            }
+        });
         getContentPane().add(senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 180, 30));
 
         jLabel2.setFont(new java.awt.Font("OCR A Extended", 1, 14)); // NOI18N
@@ -64,25 +67,25 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("Senha:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, -1, 20));
 
-        botaocadastro.setFont(new java.awt.Font("OCR A Extended", 1, 14)); // NOI18N
-        botaocadastro.setText("Cadastre-se");
-        botaocadastro.addActionListener(new java.awt.event.ActionListener() {
+        botaovoltar.setFont(new java.awt.Font("OCR A Extended", 1, 14)); // NOI18N
+        botaovoltar.setText("Voltar");
+        botaovoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaocadastroActionPerformed(evt);
+                botaovoltarActionPerformed(evt);
             }
         });
-        getContentPane().add(botaocadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 140, 30));
+        getContentPane().add(botaovoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 370, 90, 30));
 
-        botaologin.setFont(new java.awt.Font("OCR A Extended", 1, 14)); // NOI18N
-        botaologin.setText("Login");
-        botaologin.addActionListener(new java.awt.event.ActionListener() {
+        botaoenviar.setFont(new java.awt.Font("OCR A Extended", 1, 14)); // NOI18N
+        botaoenviar.setText("Enviar");
+        botaoenviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaologinActionPerformed(evt);
+                botaoenviarActionPerformed(evt);
             }
         });
-        getContentPane().add(botaologin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 90, 30));
+        getContentPane().add(botaoenviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 370, 90, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("E:\\2º Semestre\\DBE\\1º Semestre - LIP\\Projeto Integrador\\Login - CodeCraft.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("E:\\2º Semestre\\DBE\\1º Semestre - LIP\\Projeto Integrador\\Cadastro de Login - CodeCraft.png")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -93,29 +96,33 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_loginActionPerformed
 
-    private void botaologinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaologinActionPerformed
+    private void botaoenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoenviarActionPerformed
         // TODO add your handling code here:
         
         Conectar obj = new Conectar();
         Connection conexao = obj.connectionMySql();
-        boolean z = obj.BuscaLogin(login.getText(), senha.getText());
-        if(z){
-            JOptionPane.showMessageDialog(null, "Login Autenticado, Bem-Vindo!");
+        boolean y = obj.CadastroLogin(login.getText(), senha.getText());
+        if(y){
+            JOptionPane.showMessageDialog(null, "Cadastro Realizado!");
             dispose();
-            new Menu().setVisible(true);
+            new Login().setVisible(true);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Login ou Senha incorretos!\nCaso não possua um login, clique no botão \"Cadastre-se\" ");
+            JOptionPane.showMessageDialog(null, "Não foi possível realizar o cadastro, tente novamente!");            
         }
         login.setText("");
-        senha.setText("");       
-    }//GEN-LAST:event_botaologinActionPerformed
+        senha.setText("");  
+    }//GEN-LAST:event_botaoenviarActionPerformed
 
-    private void botaocadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaocadastroActionPerformed
+    private void senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_senhaActionPerformed
+
+    private void botaovoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaovoltarActionPerformed
         // TODO add your handling code here:
         dispose();
-        new Cadastro().setVisible(true);
-    }//GEN-LAST:event_botaocadastroActionPerformed
+        new Login().setVisible(true);
+    }//GEN-LAST:event_botaovoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,27 +141,27 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Cadastro().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaocadastro;
-    private javax.swing.JButton botaologin;
+    private javax.swing.JButton botaoenviar;
+    private javax.swing.JButton botaovoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
